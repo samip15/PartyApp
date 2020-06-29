@@ -8,47 +8,39 @@ import androidx.annotation.Nullable;
 
 public class WaitListDBHelper extends SQLiteOpenHelper {
 
-    // Database Name
+    //database name
     private static final String DATABASE_NAME = "waitlist.db";
-    // Database Version
+    //database version
     private static final int DATABASE_VERSION = 1;
 
     /**
-     * Constructor For Helper Class
-     *
-     * @param context:Context For Database Helper Class
+     *   Constructor
      */
     public WaitListDBHelper(@Nullable Context context) {
         super(context, DATABASE_NAME, null, DATABASE_VERSION);
     }
 
     /**
-     * Creating A New Database WaitList
-     *
-     * @param sqLiteDatabase:database
+     *    Creating a new database call WaitList
      */
     @Override
     public void onCreate(SQLiteDatabase sqLiteDatabase) {
         final String SQL_CREATE_WAITLIST_TABLE = "CREATE TABLE " + WaitListContract.WaitListEntry.TABLE_NAME + " (" +
-                WaitListContract.WaitListEntry._ID + " INTEGER PRIMARY KEY AUTOINCREMENT ," +
-                WaitListContract.WaitListEntry.COLUMN_GUEST_NAME + "TEXT NOT NULL ," +
-                WaitListContract.WaitListEntry.COLUMN_PARTY_SIZE + "INTEGER NOT NULL, " +
-                WaitListContract.WaitListEntry.COLUMN_TIMESTAMP + "TIMESTAMP DEFAULT CURRENT_TIMESTAMP " +
-                ");";
-        sqLiteDatabase.execSQL(SQL_CREATE_WAITLIST_TABLE);
+                WaitListContract.WaitListEntry._ID + " INTEGER PRIMARY KEY AUTOINCREMENT," +
+                WaitListContract.WaitListEntry.COLUMN_GUEST_NAME + " TEXT NOT NULL, " +
+                WaitListContract.WaitListEntry.COLUMN_PARTY_SIZE + " INTEGER NOT NULL, " +
+                WaitListContract.WaitListEntry.COLUMN_TIMESTAMP + " TIMESTAMP DEFAULT CURRENT_TIMESTAMP" +
+                "); ";
 
+        sqLiteDatabase.execSQL(SQL_CREATE_WAITLIST_TABLE);
     }
 
     /**
-     * When We Update The App Or Create A New Database Drop Old One
-     *
-     * @param sqLiteDatabase:Database
-     * @param oldVersion:Previous Version
-     * @param newVersion:Current  Version
+     *    When we update the app or create a new database drop old one
      */
     @Override
-    public void onUpgrade(SQLiteDatabase sqLiteDatabase, int oldVersion, int newVersion) {
-        sqLiteDatabase.execSQL(" DROP TABLE IF EXISTS "+ WaitListContract.WaitListEntry.TABLE_NAME);
+    public void onUpgrade(SQLiteDatabase sqLiteDatabase, int i, int i1) {
+        sqLiteDatabase.execSQL("DROP TABLE IF EXISTS " + WaitListContract.WaitListEntry.TABLE_NAME);
         onCreate(sqLiteDatabase);
     }
 }
